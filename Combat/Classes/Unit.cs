@@ -14,7 +14,7 @@ namespace Combat.Classes
                         speed,
                         strength;
         private bool    alive;
-        
+        public List<Interfaces.IAbility> Abilities;
 
         #region IAttributes Implamentation 
         public float Defense
