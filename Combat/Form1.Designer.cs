@@ -238,7 +238,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.SaveButton.Location = new System.Drawing.Point(58, 201);
+            this.SaveButton.Location = new System.Drawing.Point(67, 222);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 25;
@@ -269,6 +269,7 @@
             this.ClientSize = new System.Drawing.Size(623, 293);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RPG";
             this.Text = "RPG";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -12,8 +12,6 @@ namespace Combat
 {
     public partial class RPG : Form
     {
-        UnitInfo temp;
-
         public RPG()
         {
             InitializeComponent();
@@ -42,6 +40,10 @@ namespace Combat
             }
         }
 
+        private void ImageCover(object sender, EventArgs e)
+        {
+             
+        }
 
         private void ChangeAttribute(object sender, EventArgs e)
         {
@@ -60,10 +62,10 @@ namespace Combat
             }
 
             int val = int.Parse(attValue.Text);
-            if (b.Text == "<")
-                val--;
+            if (b.Text == "<" && val > 0)
+                    val--;
 
-            if (b.Text == ">")
+            if (b.Text == ">" && val >= 0)
                 val++;
 
             attValue.Text = val.ToString();
