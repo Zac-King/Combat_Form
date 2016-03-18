@@ -17,6 +17,10 @@ namespace Combat
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+
+            Classes.Unit Zac = new Classes.Unit("Zac", 15f, 15f, 5f, 7f, 4f);
+
+            
         }
     }
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Combat.Interfaces;
 
 namespace Combat.Classes
 {
-    class Unit : Interfaces.IAttributes, Interfaces.IDamageable, Interfaces.IKillable
+    class Unit : Interfaces.IUnit
     {
         private float   defense,
                         health,
@@ -14,7 +15,31 @@ namespace Combat.Classes
                         speed,
                         strength;
         private bool    alive;
+        private string  name;
+
         public List<Interfaces.IAbility> Abilities;
+        
+        #region Constructors
+        public Unit(string n, float maxhp, float hp, float def, float spd, float str)
+        {
+            name        = n;
+            maxHealth   = maxhp;
+            health      = hp;
+            defense     = def;
+            speed       = spd;
+            strength    = str;
+            alive       = true;
+            Abilities   = new List<IAbility>();
+        }
+        #endregion
+
+        public void AddAbility(Ability a)
+        {
+            if(!Abilities.Contains(a))  // Check to make sure it doesn't already exist
+                Abilities.Add(a);
+        }
+
+        #region IUnit Implementation
 
         #region IAttributes Implamentation 
         public float Defense
@@ -110,5 +135,16 @@ namespace Combat.Classes
         }
         #endregion
 
+        #region IUnit specific Implementation  
+        string IUnit.Name
+        {
+            get
+            {
+                return name;
+            }
+        }
+        #endregion
+
+        #endregion
     }
 }

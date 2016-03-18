@@ -11,39 +11,42 @@ namespace Combat.Classes
     class Ability : Interfaces.IAbility
     {
         private string name;
-        bool damageOnExecute, hasEffect;
-        float intialValue;
+        bool hasInitial, hasEffect;
+        float initialValue;
         IEffect effect;
 
-        Ability(string n, float initVal)    // Ability with only an Intial Acting Value
+        #region Constructors
+        public Ability(string n, float initVal)    // Ability with only an Intial Acting Value
         {
             name = n;
-            intialValue = initVal;
-            damageOnExecute = true;
+            initialValue = initVal;
+            hasInitial = true;
         }
 
-        Ability(string n, float initVal, IEffect ef)    // Ability With Intial
+        public Ability(string n, float initVal, IEffect ef)    // Ability With Intial
         {
             name = n;
-            intialValue = initVal;
-            damageOnExecute = true;
+            initialValue = initVal;
+            hasInitial = true;
             effect = ef;
             hasEffect = true;
         }
 
-        Ability(string n, IEffect ef)
+        public Ability(string n, IEffect ef)
         {
             name = n;
-            damageOnExecute = false;
+            hasInitial = false;
             effect = ef;
             hasEffect = true;
         }
+        #endregion
 
-        public bool ActOnExucute
+        #region IAbility Implementation
+        public bool HasInitial
         {
             get
             {
-                return damageOnExecute;
+                return hasInitial;
             }
         }
 
@@ -67,7 +70,7 @@ namespace Combat.Classes
         {
             get
             {
-                return intialValue;
+                return initialValue;
             }
         }
 
@@ -79,16 +82,15 @@ namespace Combat.Classes
             }
         }
 
-        
-
         public bool Available()
         {
             throw new NotImplementedException();
         }
 
-        public void Exucute()
+        public void Exucute(IUnit target)
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }
