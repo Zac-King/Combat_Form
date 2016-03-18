@@ -7,6 +7,7 @@ using Combat.Interfaces;
 
 namespace Combat.Classes
 {
+    [Serializable()]
     class Unit : Interfaces.IUnit
     {
         private float   defense,

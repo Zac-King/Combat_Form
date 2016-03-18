@@ -10,23 +10,99 @@ using System.Windows.Forms;
 
 namespace Combat
 {
-    public partial class Form1 : Form
+    public partial class RPG : Form
     {
-        Classes.Unit Jake = new Classes.Unit("Jake", 15, 15, 5, 7, 4);
-        Classes.Unit Dane = new Classes.Unit("Dane", 12, 12, 6, 8, 5);
+        UnitInfo temp;
 
-        Classes.Ability Attack = new Classes.Ability("Attack", 5);
-
-        public Form1()
+        public RPG()
         {
             InitializeComponent();
-            Jake.AddAbility(Attack);
-            Dane.AddAbility(Attack);
         }
 
-        private void Player1Attack_Click(object sender, EventArgs e)
+        [Serializable]
+        internal class UnitInfo
         {
-            Jake.Abilities[0].Exucute(Dane);
+            private float defense,
+                        health,
+                        maxHealth,
+                        speed,
+                        strength;
+            private bool alive;
+            private string name;
+
+            public UnitInfo(string n, float maxhp, float def, float spd, float str)
+            {
+                name = n;
+                maxHealth = maxhp;
+                health = maxHealth;
+                defense = def;
+                speed = spd;
+                strength = str;
+                alive = true;
+            }
         }
+
+
+        private void ChangeAttribute(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            Control parent = b.Parent;
+            Panel p = parent as Panel;
+            Label attValue = new Label();
+
+            foreach(Control ch in p.Controls)
+            {
+                if (ch is Label)
+                {
+                    attValue = ch as Label;
+                    break;
+                }
+            }
+
+            int val = int.Parse(attValue.Text);
+            if (b.Text == "<")
+                val--;
+
+            if (b.Text == ">")
+                val++;
+
+            attValue.Text = val.ToString();
+        }
+
+        private void SaveAttributes(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            Control parent = b.Parent;
+            Panel panelGroup = parent as Panel;
+
+            float str = 0f, def = 0f, spd = 0f;
+            string name = "John";
+
+            foreach(Control c in parent.Controls)
+            {
+                if(c is Panel)
+                    foreach( Control c2 in c.Controls)
+                        if (c2 is Label)
+                        {
+                            int val = int.Parse(c2.Text);
+
+                            if (c2.Name == "StrengthValue")
+                                str = val;
+                            if (c2.Name == "DefenseValue")
+                                def = val;
+                            if (c2.Name == "SpeedValue")
+                                spd = val;
+                        }
+                if (c is TextBox)
+                    name = c.Text;
+
+            }
+            /// out of all those checks
+
+            UnitInfo temp = new UnitInfo(name, 20, def, spd, str );
+
+            Utilities.SerializeXML(name, temp);
+        }
+        
     }
 }
