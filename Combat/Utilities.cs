@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
+using System.Xml.Serialization;
 using System.IO;
 
 namespace Combat
@@ -37,7 +38,7 @@ namespace Combat
         }
 
 
-        public static void SerializeXML<T>(string s, T t)
+        public static void SerializeSoap<T>(string s, T t)
         {
             using (FileStream fs = File.Create(@"..\..\SavedFiles\" + s + ".xml")) //Creates a FileStream using information from the file we created
             {
@@ -51,7 +52,7 @@ namespace Combat
             }
         }
 
-        public static T DeserializeXML<T>(string s)
+        public static T DeserializeSoap<T>(string s)
         {
             T t; //We will use the as the return value
             using (FileStream fs = File.OpenRead(@"..\..\SavedFiles\" + s + ".xml")) //Same process as Serialize but instead of create we use OpenRead
@@ -65,6 +66,29 @@ namespace Combat
                 fs.Close(); //Allways close your files when you are done using them
             }
             return t; //We then return t
+        }
+
+        public static void SerializeXML<T>(string saveFolder, string fileName, T t)
+        {
+            using (FileStream fs = File.Create(@"..\..\" + saveFolder + @"\" + fileName + ".bin"))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+
+                serializer.Serialize(fs, t);
+                fs.Close();
+            }
+        }
+
+        public static T DeserializeXML<T>(string saveFolder, string fileName)
+        {
+            T t;
+            using (FileStream fs = File.OpenRead(@"..\..\" + saveFolder + @"\" + fileName + ".bin"))
+            {
+                XmlSerializer deserializer = new XmlSerializer(typeof(T));
+                t = (T)deserializer.Deserialize(fs);
+            }
+
+            return t;
         }
     }
 }

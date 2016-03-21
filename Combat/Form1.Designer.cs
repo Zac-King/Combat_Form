@@ -49,6 +49,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.RemainingPoints = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.Strength.SuspendLayout();
             this.Speed.SuspendLayout();
@@ -248,6 +249,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.RemainingPoints);
             this.panel1.Controls.Add(this.SaveButton);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label5);
@@ -261,6 +263,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(219, 248);
             this.panel1.TabIndex = 26;
+            // 
+            // RemainingPoints
+            // 
+            this.RemainingPoints.AutoSize = true;
+            this.RemainingPoints.Location = new System.Drawing.Point(100, 194);
+            this.RemainingPoints.Name = "RemainingPoints";
+            this.RemainingPoints.Size = new System.Drawing.Size(19, 13);
+            this.RemainingPoints.TabIndex = 26;
+            this.RemainingPoints.Text = "15";
             // 
             // RPG
             // 
@@ -306,6 +317,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label RemainingPoints;
     }
 }
 

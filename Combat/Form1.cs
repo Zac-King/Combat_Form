@@ -15,18 +15,19 @@ namespace Combat
         public RPG()
         {
             InitializeComponent();
+
         }
 
         [Serializable]
-        internal class UnitInfo
+        public class UnitInfo 
         {
-            private float defense,
+            public float defense,
                         health,
                         maxHealth,
                         speed,
                         strength;
-            private bool alive;
-            private string name;
+            public bool alive;
+            public string name;
 
             public UnitInfo(string n, float maxhp, float def, float spd, float str)
             {
@@ -38,12 +39,9 @@ namespace Combat
                 strength = str;
                 alive = true;
             }
+            public UnitInfo() { }
         }
-
-        private void ImageCover(object sender, EventArgs e)
-        {
-             
-        }
+        
 
         private void ChangeAttribute(object sender, EventArgs e)
         {
@@ -51,8 +49,16 @@ namespace Combat
             Control parent = b.Parent;
             Panel p = parent as Panel;
             Label attValue = new Label();
+            Label points = new Label();
 
-            foreach(Control ch in p.Controls)
+            foreach (Control c in parent.Parent.Controls)
+            {
+                if (c.Name == "RemainingPoints" && c is Label)
+                    points = c as Label;
+                //
+            }
+
+            foreach (Control ch in p.Controls)
             {
                 if (ch is Label)
                 {
@@ -62,13 +68,21 @@ namespace Combat
             }
 
             int val = int.Parse(attValue.Text);
-            if (b.Text == "<" && val > 0)
-                    val--;
+            int pointValue = int.Parse(points.Text);
 
-            if (b.Text == ">" && val >= 0)
+            if ((b.Text == "<") && (val > 0) && (pointValue <= 15))
+            {
+                val--;
+                pointValue++;
+            }
+
+            if ((b.Text == ">") && (val >= 0) && (pointValue > 0))
+            {
                 val++;
-
+                pointValue--;
+            }
             attValue.Text = val.ToString();
+            points.Text = pointValue.ToString();
         }
 
         private void SaveAttributes(object sender, EventArgs e)
@@ -103,7 +117,7 @@ namespace Combat
 
             UnitInfo temp = new UnitInfo(name, 20, def, spd, str );
 
-            Utilities.SerializeXML(name, temp);
+            Utilities.SerializeXML("SavedFiles", name, temp);
         }
         
     }
